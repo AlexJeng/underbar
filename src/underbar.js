@@ -161,15 +161,12 @@ var _ = {};
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
     return _.map(collection, function(item){
-      console.log('items ' + item);
       if (typeof functionOrKey === 'function') { // check to see if it's a function
-        return functionOrKey.apply(item, args); 
-      } else { // alternatively you could just choose not to do a an elseif statemnet and just do else btw.
-        console.log('else item ' + item);
-         return item[functionOrKey].apply(item, args); // how do we change this one, similiar to the change i just made above
+         return functionOrKey.apply(item, args); 
+      } else { //otherwise it's an object
+         return item[functionOrKey].apply(item, args); 
       }
     }); 
-
   };
 
   // Reduces an array or object to a single value by repetitively calling
