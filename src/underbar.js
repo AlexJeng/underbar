@@ -101,17 +101,27 @@ var _ = {};
     // copying code in and modifying it
     var array = [];
     var arrayFilter = _.filter(collection, test);
-    var secondArray = !_.filter(collection, test);
-    console.log('second array' + secondArray);
-    for(var i = 0; i < collection.length; i++)
-    {
-      //if()
+
+    for(var i = 0; i < collection.length; i++){
+      if(arrayFilter.indexOf(collection[i]) === -1) //if collection does not contain items in arrayfilter
+      {
+        array.push(collection[i]);                  //add it to the returned array
+      }
     }
   return array;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    for(var i = 0; i < array.length; i++){
+          while(array.indexOf(array[i]) !== array.lastIndexOf(array[i])){ //check to see if first index and last index are not equal, means there is a duplicate
+            array.splice(array.lastIndexOf(array[i]), 1); //delete duplciate
+              if(array.indexOf(array[i]) === array.lastIndexOf(array[i])){ //if there are no more duplicates, go through next iteration
+                break;
+            }
+          }
+    }
+    return array;
   };
 
 
@@ -120,6 +130,13 @@ var _ = {};
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var array = [];
+    if (Array.isArray(collection)){ //collection is an Array
+      for (var i=0; i < collection.length; i++){
+        array[i] = iterator(collection[i], i, collection);
+      } 
+    }
+    return array;
   };
 
   /*
@@ -143,6 +160,16 @@ var _ = {};
   // Calls the method named by functionOrKey on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    return _.map(collection, function(item){
+      console.log('items ' + item);
+      if (typeof functionOrKey === 'function') { // check to see if it's a function
+        return functionOrKey.apply(item, args); 
+      } else { // alternatively you could just choose not to do a an elseif statemnet and just do else btw.
+        console.log('else item ' + item);
+         return item[functionOrKey].apply(item, args); // how do we change this one, similiar to the change i just made above
+      }
+    }); 
+
   };
 
   // Reduces an array or object to a single value by repetitively calling
