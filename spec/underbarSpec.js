@@ -228,7 +228,7 @@ describe('reduce', function() {
 describe('contains', function() {
   it('should return false if a collection does not contain a user-specified value', function() {
     expect(_.contains([4,5,6], 2)).to.equal(false);
-  });
+  }); 
 
   it('should return true if a collection contains a user-specified value', function() {
     expect(_.contains([  4,   5,   6], 5)).to.equal(true);
