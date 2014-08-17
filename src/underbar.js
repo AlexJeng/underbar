@@ -223,11 +223,18 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var stringTest = false;
+    _.each(collection, function(item, index){
+      if(typeof item === "string"){
+        stringTest = true;
+      }
+    });
 
+    if (stringTest){
+      return true;
+    }
+    
     return !(_.every(collection, function(item){
-      //console.log('item ' + item);
-      //console.log('iterator item ' + iterator(item));
-        
         return !iterator(item);
       }));
   
